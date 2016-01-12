@@ -1,12 +1,12 @@
 
+import com.tnqsoft.bank.Donga;
+import com.tnqsoft.bank.Vietcombank;
 import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -67,9 +67,11 @@ public class MyTools extends javax.swing.JFrame {
         btnFilter = new javax.swing.JButton();
         btnClearFilter = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtBank = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MyTool for VCB - Ver 1.0.2");
+        setTitle("Bank analytics - Ver 1.0.3");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -168,7 +170,7 @@ public class MyTools extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDate))
+                        .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,23 +203,40 @@ public class MyTools extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel5.setText("Ngân hàng:");
+
+        txtBank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vietcombank", "Đông Á Bank" }));
+        txtBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBankActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReport)
+                    .addComponent(txtBank, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFilename)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChoice)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReport))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnChoice)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -225,15 +244,20 @@ public class MyTools extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReport)
-                    .addComponent(btnChoice)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtFilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnChoice))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -317,6 +341,10 @@ public class MyTools extends javax.swing.JFrame {
         // TODO add your handling code here:
 		filterDaTa();
     }//GEN-LAST:event_btnFilterActionPerformed
+
+    private void txtBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBankActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBankActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -411,7 +439,8 @@ public class MyTools extends javax.swing.JFrame {
 	private boolean createReport() throws IOException, BiffException {
 		disableMyStage();
 		String fileName = txtFilename.getText();
-
+		String bankName = txtBank.getSelectedItem().toString();
+		
 		//Check filename empty
 		if(fileName.equals("")) {
 			JOptionPane.showMessageDialog(this,
@@ -421,6 +450,19 @@ public class MyTools extends javax.swing.JFrame {
 			enableMyStage();
 			return false;
 		}
+		
+		if("Vietcombank".equals(bankName)) {
+			vietcombankImport(fileName);
+		} else if("Đông Á Bank".equals(bankName)) {
+			dongaImport(fileName);
+		}
+
+		enableMyStage();
+		return true;
+	}
+	
+	private void vietcombankImport(String fileName) throws IOException, BiffException {
+		Vietcombank parser = new Vietcombank();
 
 		//Convert
 		Workbook workbook = Workbook.getWorkbook(new File(fileName));
@@ -440,25 +482,62 @@ public class MyTools extends javax.swing.JFrame {
 			//Cell cell4 = sheet.getCell(3, i);
 			Cell cell5 = sheet.getCell(4, i);
 
-			if(validData(cell1.getContents(), cell5.getContents())) {
+			if(parser.validData(cell1.getContents(), cell5.getContents())) {
 				stt++;
 				//Tai khoan
-				String value1 = getValue1(cell5.getContents());
+				String value1 = parser.getValue1(cell5.getContents());
 				//Nhan tien
 				String value2 = cell3.getContents();
 				//Chuyen tien
 				String value3 = cell2.getContents();
 				//Ngay
-				String value4 = getValue4(cell1.getContents());
+				String value4 = parser.getValue4(cell1.getContents());
 				//Chu thich
-				String value5 = getValue5(cell5.getContents());
+				String value5 = parser.getValue5(cell5.getContents());
 				model.addRow(new Object[]{stt, value1, value2, value3, value4, value5});
 			}
 
 		}
+	}
+	
+	private void dongaImport(String fileName) throws IOException, BiffException {
+		Donga parser = new Donga();
 
-		enableMyStage();
-		return true;
+		//Convert
+		Workbook workbook = Workbook.getWorkbook(new File(fileName));
+		Sheet sheet = workbook.getSheet(0);
+
+		DefaultTableModel model = (DefaultTableModel) tblResult.getModel();
+
+		//Clear All Rows
+		model.setRowCount(0);
+
+		int stt = 0;
+
+		for (int i = 17; i < sheet.getRows(); i++) {
+			Cell cell1 = sheet.getCell(0, i);
+			Cell cell2 = sheet.getCell(1, i);
+			Cell cell3 = sheet.getCell(2, i);
+			Cell cell4 = sheet.getCell(3, i);
+			Cell cell5 = sheet.getCell(4, i);
+			Cell cell6 = sheet.getCell(5, i);
+
+			if(parser.validData(cell2.getContents(), cell3.getContents())) {
+				stt++;
+				//Tai khoan
+				String value1 = parser.getValue1(cell3.getContents());
+				//Nhan tien
+				String value2 = cell6.getContents();
+				//Chuyen tien
+				String value3 = cell5.getContents();
+				//Ngay
+				String value4 = cell1.getContents();
+				//Chu thich
+				String value5 = parser.getValue5(cell3.getContents());
+				model.addRow(new Object[]{stt, value1, value2, value3, value4, value5});
+			}
+
+		}
 	}
 
 	private void filterDaTa() {
@@ -497,58 +576,6 @@ public class MyTools extends javax.swing.JFrame {
 		}
 	}
 
-	private boolean validData(String data1, String data5) {
-		boolean foundMatch1 = data1.matches("[0-9]{2}\\/[0-9]{2}\\/[0-9]{4} [A-Z0-9]{4}\\.[0-9]{6}");
-		boolean foundMatch2 = data5.matches("(.*)TK DOI UNG: ([0-9]*)");
-		return foundMatch1 && foundMatch2;
-	}
-
-	private String getValue4(String value) {
-		Pattern regex = Pattern.compile("([0-9]{2}\\/[0-9]{2}\\/[0-9]{4})");
-		Matcher regexMatcher = regex.matcher(value);
-		if (regexMatcher.find()) {
-			return regexMatcher.group();
-		} else {
-			return "";
-		}
-	}
-
-	private String getValue1(String value) {
-		Pattern regex = Pattern.compile("(.*)TK DOI UNG: ([0-9]*)");
-		Matcher regexMatcher = regex.matcher(value);
-		if (regexMatcher.find()) {
-			return regexMatcher.group(2).trim();
-		} else {
-			return "";
-		}
-	}
-
-	private String getValue5(String value) {
-        boolean matchCase1 = value.matches("FTF.CN(.*)");
-		boolean matchCase2 = value.matches("IBVCB\\.(.*)\\.(.*)TK DOI UNG:(.*)");
-
-		if(matchCase1) {
-			return "";
-		} else if(matchCase2) {
-			Pattern regex = Pattern.compile("IBVCB\\.(.*)\\.(.*)TK DOI UNG:(.*)");
-			Matcher regexMatcher = regex.matcher(value);
-			if (regexMatcher.find()) {
-				return regexMatcher.group(2).trim();
-			} else {
-				return "";
-			}
-		} else {
-			Pattern regex = Pattern.compile("(.*)TK DOI UNG:(.*)");
-			Matcher regexMatcher = regex.matcher(value);
-			if (regexMatcher.find()) {
-				return regexMatcher.group(1).trim();
-			} else {
-				return "";
-			}
-		}
-
-	}
-
 	private void disableMyStage() {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		btnChoice.setEnabled(false);
@@ -573,10 +600,12 @@ public class MyTools extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblResult;
     private javax.swing.JTextField txtAccount;
+    private javax.swing.JComboBox<String> txtBank;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtFilename;
     private javax.swing.JTextField txtNote;
